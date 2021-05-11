@@ -105,24 +105,30 @@ REPL, refer to the full manual.
 
 ### Set default REPLs
 
-Zepl uses the (buffer local) `b:repl_config` dictionary for configuration.  The
-`'cmd'` key can be used to set a default REPL command used for a buffer.
-Common usage of this is with [automatic commands](https://vimhelp.org/autocmd.txt.html#autocmd.txt)
-or [filetype plugins](https://vimhelp.org/usr_41.txt.html#41.12).
+Zepl uses the `g:repl_config` dictionary for configuration.  The keys are
+[filetypes](https://vimhelp.org/filetype.txt.html#filetypes) and the values are
+dictionaries of configuration options for that filetype.
+
+The main configuration option is the `cmd` key which sets a default REPL
+command for buffers of that filetype.
 
 ```vim
-augroup zepl
-    autocmd!
-    autocmd FileType javascript let b:repl_config = { 'cmd': 'node' }
-    autocmd FileType clojure    let b:repl_config = { 'cmd': 'clj' }
-    autocmd FileType scheme     let b:repl_config = { 'cmd': 'rlwrap csi' }
-    autocmd FileType julia      let b:repl_config = { 'cmd': 'julia' }
-augroup END
+let g:repl_config = {
+            \   'javascript': { 'cmd': 'node' }
+            \   'clojure': {
+            \     'cmd': 'clj'
+            \   },
+            \   'scheme': 'rlwrap csi',
+            \   'julia': 'julia'
+            \ }
 ```
 
 (When a default REPL has been specified, you only need to run `:Repl` to start
 it.  The default can be overridden by using `:Repl <command>` as mentioned in
 the "[Start a REPL](#start-a-repl)" section above.)
+
+Full details on configuring Zepl can be found in the manual at
+`:help zepl-configuration`.
 
 
 #### Python
@@ -136,9 +142,11 @@ with Zepl and can be used like so.
 ```vim
 runtime zepl/contrib/python.vim  " Enable the Python contrib module.
 
-autocmd! FileType python let b:repl_config = {
-            \   'cmd': 'python',
-            \   'formatter': function('zepl#contrib#python#formatter')
+let g:repl_config = {
+            \   'python': {
+            \     'cmd': 'python',
+            \     'formatter': function('zepl#contrib#python#formatter')
+            \   }
             \ }
 ```
 
