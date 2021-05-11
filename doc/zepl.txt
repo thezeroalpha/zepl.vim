@@ -101,21 +101,30 @@ REPL, see |zepl-remap| and |:ReplSend| respectively.
 ------------------------------------------------------------------------------
  2.4. SET DEFAULT REPLS                                *zepl-quickstart-config*
 
-Zepl uses the (buffer local) 'b:repl_config' dictionary for configuration.
-The `'cmd'` key can be used to set a default REPL command used for a buffer.
-Common usage of this is with |autocmd|s or |ftplugin|s.
+Zepl uses the 'g:repl_config' dictionary for configuration.  The keys are
+|filetypes| and the values are dictionaries of configuration options for that
+filetype.
+
+The main configuration option is the `'cmd'` key which sets a default REPL
+command for buffers of that filetype.
 >
-    augroup zepl
-        autocmd!
-        autocmd FileType javascript let b:repl_config = { 'cmd': 'node' }
-        autocmd FileType clojure    let b:repl_config = { 'cmd': 'clj' }
-        autocmd FileType scheme     let b:repl_config = { 'cmd': 'rlwrap csi' }
-        autocmd FileType julia      let b:repl_config = { 'cmd': 'julia' }
-    augroup END
+    let g:repl_config = {
+                \   'javascript': { 'cmd': 'node' }
+                \   'clojure': {
+                \     'cmd': 'clj'
+                \   },
+                \   'scheme': 'rlwrap csi',
+                \   'julia': 'julia'
+                \ }
 <
 (When a default REPL has been specified, you only need to run |:Repl| to start
 it.  The default can be overridden by using `:Repl <command>` as mentioned in
 the |zepl-quickstart-start| section above.)
+
+There also exists a 'b:repl_config' variable if you prefer to keep your REPL
+configurations in |ftplugin| files or |autocmd|s.
+
+Full details on configuring Zepl can be found at |zepl-configuration|.
 
 ==============================================================================
  3. TECHNICAL DETAILS                                          *zepl-reference*
@@ -370,6 +379,29 @@ The `cmd` key is used to set the default interpreter command used by |:Repl|.
     augroup END
 <
 See |zepl-formatter| to learn about the `formatter` key.
+
+If this variable does not exist, Zepl will try to fallback to 'g:repl_config'.
+
+..............................................................................
+                                                              *'g:repl_config'*
+
+A |global-variable| containing a |Dictionary| for configuring default REPL
+settings.
+
+The keys in this dictionary are |filetypes| and the values are the same
+dictionaries used for 'b:repl_config'.  This serves as a quicker way to
+configure default REPLs without needing to create lots of |autocmd|s or
+|ftplugin| files.
+>
+    let g:repl_config = {
+                \   'javascript': { 'cmd': 'node' }
+                \   'clojure': {
+                \     'cmd': 'clj'
+                \   }
+                \ }
+<
+If no 'b:repl_config' variable exists, Zepl will use 'g:repl_config' as a
+fallback.
 
 ..............................................................................
                                             *'g:zepl_default_maps'*  *zepl-remap*

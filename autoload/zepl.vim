@@ -83,7 +83,9 @@ function! zepl#jump(...) abort
 endfunction
 
 function! s:config(option, default)
-    return get(get(b:, 'repl_config', {}), a:option, a:default)
+    return get(get(b:, 'repl_config',
+        \          get(get(g:, 'repl_config', {}), &ft, {})),
+        \      a:option, a:default)
 endfunction
 
 function! zepl#generic_formatter(text)
