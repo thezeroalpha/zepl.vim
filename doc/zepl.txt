@@ -463,6 +463,11 @@ contrib file.
 ==============================================================================
  4. CHANGE LOG                                                 *zepl-changelog*
 
+v1.2 [2021-05-11]~
+
+  * Added global REPL configuration through the 'g:repl_config' variable.
+  * New/updated contrib extensions.  (See |zepl-contrib|.)
+
 v1.1 [2020-07-01]~
 
   * Improved newline handling.

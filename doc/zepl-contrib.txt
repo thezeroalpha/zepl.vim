@@ -59,7 +59,7 @@ Copy/adapt the code below to your |vimrc| to add improved Python support.
 Extra features for Zepl.
 
     * Load files  |zepl-load_files|
-    * Send control characters |zepl-control_characters|
+    * Send control characters  |zepl-control_characters|
 
 ------------------------------------------------------------------------------
                                           *zepl-load_files*  *:ReplLoadFile*  *gz.*
