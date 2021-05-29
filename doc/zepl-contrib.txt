@@ -60,6 +60,7 @@ Extra features for Zepl.
 
     * Load files  |zepl-load_files|
     * Send control characters  |zepl-control_characters|
+    * Neovim autoscroll hack  |zepl-nvim_autoscroll_hack|
 
 ------------------------------------------------------------------------------
                                           *zepl-load_files*  *:ReplLoadFile*  *gz.*
@@ -148,6 +149,21 @@ Note: You will likely want to disable zepl.vim's default key bindings before
 setting your own.  This can be done using 'g:zepl_default_maps'.
 
 See also: |g:zepl_default_maps|.
+
+------------------------------------------------------------------------------
+                                                    *zepl-nvim_autoscroll_hack*
+
+Enable a hacky workaround to force Neovim's |:terminal| buffer to auto-scroll
+after leaving |Terminal-mode|.
+>
+    runtime zepl/contrib/nvim_autoscroll_hack.vim
+<
+By default Neovim's |:terminal| buffer will only auto-scroll when the cursor is
+on the last line of the buffer.  But when you start a new REPL, your cursor
+probably won't be at the bottom, so the buffer won't auto-scroll.
+
+This contrib module simply remaps <C-\><C-n> to also move the cursor to the
+bottom of the buffer, which mostly alleviates the problem.
 
 ------------------------------------------------------------------------------
 vim:et:ts=2:sts=2:sw=2:tw=78:ft=help:norl:
