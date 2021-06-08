@@ -120,7 +120,7 @@ Add the following code snippet to your |vimrc| to enable this extension.
 <
 Two key combinations are provided. Press |gzc| and a key (combination) to
 send the corresponding character to the terminal (e.g. |gzc<C-c>| sends
-Ctrl-C).
+Ctrl-C). <Esc> cancels sending a character.
 
 The default combination to switch to the window containing the REPL is
 |gz<TAB>|.
