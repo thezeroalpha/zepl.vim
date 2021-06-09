@@ -18,7 +18,7 @@ function! zepl#start(cmd, ...) abort
         return
 
     elseif !s:repl_bufnr
-        let cmd = (empty(a:cmd) ? s:config('cmd', '') : a:cmd)
+        let cmd = (empty(a:cmd) ? zepl#config('cmd', '') : a:cmd)
 
         if empty(cmd)
             call s:error('No command specified')
@@ -82,7 +82,7 @@ function! zepl#jump(...) abort
     let &switchbuf = swb
 endfunction
 
-function! s:config(option, default)
+function! zepl#config(option, default)
     return get(get(b:, 'repl_config',
         \          get(get(g:, 'repl_config', {}), &ft, {})),
         \      a:option, a:default)
@@ -107,7 +107,7 @@ function! zepl#send(text, ...) abort
             let text = split(text, '\m\C[\n\r]\zs', 1)
         endif
 
-        let text = s:config('formatter', function('zepl#generic_formatter'))(text)
+        let text = zepl#config('formatter', function('zepl#generic_formatter'))(text)
     endif
 
     if has('nvim')

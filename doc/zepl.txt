@@ -460,6 +460,27 @@ or by joining the lines (and adding the final newline) manually:
 A more complete and complex example formatter can be found in the `python.vim`
 contrib file.
 
+..............................................................................
+                                                                *zepl#config()*
+
+You can query items from the user's Zepl configuration using the `zepl#config`
+function.  This function takes 2 arguments:
+
+  1. the name of the configuration option to lookup,
+  2. a default/fallback value (in case the user didn't specify anything).
+
+Examples:
+>
+    let b:repl_config = { 'foo': 'bar' }
+
+    let one = zepl#config('foo', 'biz')
+    echo one
+    " bar
+
+    let two = zepl#config('hello', 'world')
+    echo two
+    " world
+<
 ==============================================================================
  4. CHANGE LOG                                                 *zepl-changelog*
 
